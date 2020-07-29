@@ -1,6 +1,6 @@
 require('dotenv').config();
 const path = require('path');
-
+const moment= require('moment') ;
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
@@ -18,14 +18,27 @@ const app = express();
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }))
 app.use(bodyParser.json());
-
 app.engine('.hbs', exphbs({
     extname: '.hbs',
-    defaultLayout: 'main'
+    defaultLayout: 'main',
+    helpers: {
+        formatDate: function (date, format) {
+            return moment(date, "YYYYMMDD").fromNow();
+        },
+        isEmpty:(value)=>{
+         return value =='';
+        },
+        isNotEmpty:(value) =>{
+            return value !=='';
+        }
+
+    }
 }));
 app.set('view engine', '.hbs');
 
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(__dirname + '/nodemodules/jquery/dist'))
+app.use(express.static(__dirname +'/mode_modules/jquery/dist'));
 
 app.use('/tws', twsRouter);
 app.use('/api/tws', twsApiRouter);

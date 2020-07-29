@@ -1,4 +1,23 @@
-body{
-    background: purple;
+h1.title {
+    display: block;
+    border-bottom: 3px dashed #C1C1C1;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 10px;
+}
 
+.jumbotron {
+    width: 100%;
+}
+
+.alert {
+    width: 100%;
+}
+
+.tools {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
 }
